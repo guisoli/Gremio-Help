@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CEDSA S2</title>
+    <link rel='stylesheet' type="text/css" href='/css/style.css' />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+  
+    <header>
+        <h2>Bem vindo a CEDSA!</h2>
+    </header>
+
+    <br/>
+      <form>
+        <% if(verificacao.resultado == 'sucesso'){ %>
+          <h3><%= 'Voto efetuado com sucesso!' %></h3>
+        <% }else if(verificacao.resultado == "javotou"){ %>
+          <h3><%= 'Só é permitido um voto por dia\n:c' %></h3>
+        <% }else{ %>
+          <h3><%= 'qqacoteseu' %></h3>
+        <% } %>
+        <br/>
+      </form>
+      <footer><cite>Powered by Guilherme - King Raven Code</cite></footer>
+  </body>
+</html>

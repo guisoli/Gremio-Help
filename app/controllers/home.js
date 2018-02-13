@@ -7,8 +7,15 @@ module.exports.salvarMusica = function(req, res){
 
     var modelMusica = require('../models/ModelMusica');
     var musica = req.body;
-    modelMusica.salvarMusica(req, musica, function(){
-        
+    var resultado;
+    modelMusica.salvarMusica(req, musica, function(resultado){
+    
+        var json = null;
+        json =  JSON.parse(resultado);
+    
+        res.render('../views/resultado', { verificacao : json });
     });
+
+
 
 }
