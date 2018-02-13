@@ -5,15 +5,10 @@ module.exports.formAddMusica = function(req ,res){
 
 module.exports.salvarMusica = function(req, res){
 
-    var modelMusica = require('../models/ModelMusica')();
-
-    console.log("\nrequire modelmusica\n");
-
-    modelMusica.salvarMusica(req, '', function(){
-        console.log('Salvou a musica');
+    var modelMusica = require('../models/ModelMusica');
+    var musica = req.body;
+    modelMusica.salvarMusica(req, musica, function(){
+        
     });
-
-    
-
 
 }

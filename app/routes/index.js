@@ -11,8 +11,8 @@ router.get('/', function(req, res){
 });
 
 router.post('/musica/salvar', function(req, res){
-      console.log("Entrou no post");
       controller.salvarMusica(req, res);
+      res.render('../views/sucesso');
 });
 
 module.exports = router;
