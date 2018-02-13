@@ -3,7 +3,7 @@ create database cedsa;
 use cedsa;
 
 create table Celular(
-macCelular varchar(50) primary key,
+ipCelular varchar(50) primary key,
 dataVotacao varchar(10)
 );
 
@@ -11,7 +11,7 @@ dataVotacao varchar(10)
 create table Voto(
 idMusica int primary key auto_increment,
 
-macCelular varchar(50),
+ipCelular varchar(50),
 
 nomeMusica varchar(50),
 artista varchar(50),
@@ -21,12 +21,11 @@ foreign key(macCelular) references Celular(macCelular)
 
 select * from Celular;
 
-
+select * from Voto;
 
 select *	
 	from Celular 
-    inner join Voto on Voto.macCelular = Celular.macCelular;
-    
+    inner join Voto on Voto.ipCelular = Celular.ipCelular;
     
 
 /*

@@ -1,69 +1,51 @@
 
 
-module.exports.salvarCelular = function(macCelular, callback){
+module.exports.salvarCelular = function(ipCelular, callback){
     var conexao = require('../../config/conexao')();
     var date = new Date();
 
     var mes = date.getMonth() + 1;
 
-
-
-
-    var sql  = 'insert into Celular values("' + macCelular +'", "'+ date.getDate() +'/'+ mes +'");';
+    var sql  = 'insert into Celular values("' + ipCelular +'", "'+ date.getDate() +'/'+ mes +'");';
     
     console.log('insert do celular = ' + sql);
     conexao.query(sql, callback);
     
 }
 
-module.exports.getCelular = function(macCelular, callback){
+module.exports.getCelular = function(ipCelular, callback){
     var conexao = require('../../config/conexao')();
-    conexao.query('select * from Celular where macCelular="' + macCelular +';"', callback);
+
+    var sql = 'select * from Celular where ipCelular="' + ipCelular +'";'
+    console.log('select do celular = ' + sql);
+
+    conexao.query(sql, callback);
 
 }
 
 
 
-module.exports.updateCelular = function(macCelular, dataVotacao, callback){
+module.exports.updateCelular = function(ipCelular, dataVotacao, callback){
     var conexao = require('../../config/conexao')();
-    conexao.query('update Celular set dataVotacao="'+ dataVotacao + '" where macCelular="' + macCelular + "';", callback);
+    var sql = 'update Celular set dataVotacao="'+ dataVotacao + '" where ipCelular="' + ipCelular + '";';
+    conexao.query(sql, callback);
 }
 
+module.exports.validaCelular = function(result, callback){
+    var ipCelular = result[0].ipCelular;
+    var dataBanco = result[0].dataVotacao;
 
+    var date = new Date();
+    var mes = date.getMonth() + 1;
+    var dataVotacao =  date.getDate() +'/'+ mes;
 
-
-
-
-/*function ModelCelular(){
-    this._conexao = require('../../config/conexao')();
+    if(dataVotacao==dataBanco) console.log(ipCelular + ' já votou hoje.');
+    else {
+        console.log(dataVotacao + '=' + dataBanco)
+        console.log(ipCelular + ' acabou de votar pela primeira vez hoje.');
+        modelCelular = require('./ModelCelular');
+        modelCelular.updateCelular(ipCelular, dataVotacao);
+        
+        callback();
+    }
 }
-
-ModelCelular.prototype.salvarCelular = function(req, callback){
-
-    var ip = req.headers['x-forwarded-for'] || 
-    req.connection.remoteAddress || 
-    req.socket.remoteAddress ||
-    (req.connection.socket ? req.connection.socket.remoteAddress : null);
-
-
-    var sql  = 'insert into Celular values(null,"' + ip +'", "'+ new Date() +'");';
-    
-    console.log('insert do celular = ' + sql);
-    this._conexao.query(sql, callback);
-    
-}
-
-ModelCelular.prototype.getCelular = function(macCelular, callback){
-    this._conexao.query('select * from Celular where macCelular="' + macCelular +';"', callback);
-
-}
-
-ModelCelular.prototype.updateCelular = function(macCelular, dataVotacao, callback){
-    this._conexao.query('update Celular set dataVotacao="'+ dataVotacao + '" where macCelular="' + macCelular + "';", callback);
-}
-
-
-
-module.exports = function(){
-    return ModelCelular;
-}*/
